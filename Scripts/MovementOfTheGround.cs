@@ -7,16 +7,16 @@ using UnityEngine;
 public class MovementOfTheGround : MonoBehaviour
 {
     [Tooltip("Материал, у которого будет анимироваться Offset по Y")]
-    public Material targetMaterial;
+    [SerializeField] private Material targetMaterial;
 
     [Tooltip("Скорость прокрутки по Y")]
-    public float scrollSpeed = 2f; 
+    [SerializeField] private float scrollSpeed = 2f; 
     
     [Tooltip("Скорость прокрутки по X")]
-    public float angularSpeed = 2f;
+    [SerializeField] private float angularSpeed = 2f;
 
-    private float currentOffsetY = 0f;
-    private float currentOffsetX = 0f;
+    [SerializeField] private float currentOffsetY = 0f;
+    [SerializeField] private float currentOffsetX = 0f;
     private void Start()
     {
         MotionControlManager.OnPlayerMovment += SetAngularScrollSpeed;
