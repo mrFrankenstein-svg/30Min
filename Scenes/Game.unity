@@ -1367,6 +1367,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311175727}
   m_CullTransparentMesh: 1
+--- !u!1 &1442335759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1442335761}
+  - component: {fileID: 1442335760}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1442335760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442335759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 365af6cdbcfd39649a31c0d940bf87e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  initialPoolSize: 10
+  audioSourcePrefab: {fileID: 5727615031961336276, guid: 33832680c381dbc4d805524ca6476164,
+    type: 3}
+  sounds:
+  - type: 2
+    clips:
+    - {fileID: 8300000, guid: aa0931f0928957049bb3cf090c874090, type: 3}
+    maxSimultaneous: 15
+    volumeRange: {x: 0.5, y: 1}
+    pitchRange: {x: 0.5, y: 1}
+--- !u!4 &1442335761
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442335759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.71838, y: 0.34811, z: 42.49591}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1477093770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2164,6 +2218,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7969019785768427579}
+    - targetCorrespondingSourceObject: {fileID: 1761069812403326504, guid: 7815020fa3f2ff3429be2583b7da5bc8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7969019785768427584}
   m_SourcePrefab: {fileID: 100100000, guid: 7815020fa3f2ff3429be2583b7da5bc8, type: 3}
 --- !u!1 &6214701275738340953 stripped
 GameObject:
@@ -2183,6 +2241,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eed099f6dff12d42ab0abf18084c7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TouchSystemGameObject
+--- !u!114 &7969019785768427584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214701275738340953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7afce0c984d374d479602dda58fbedad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraBob
+  walkBobSpeed: 5
+  walkBobAmount: 0.005
+  swayAmount: 0.01
+  smooth: 8
+  velocity: 0.1
+  previousBobY: 1
+  lowestBobY: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2201,3 +2278,4 @@ SceneRoots:
   - {fileID: 1933166059}
   - {fileID: 1753315470}
   - {fileID: 4401069575661150323}
+  - {fileID: 1442335761}
