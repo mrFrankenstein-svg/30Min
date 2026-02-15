@@ -492,8 +492,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 1186392968905832166, guid: 921e766ea45eb4d4baa32e69e9b75edd, type: 3}
-  - {fileID: 1186392968905832166, guid: 7c7cd1d828dceda4ea32db8c81abecce, type: 3}
-  - {fileID: 1186392968905832166, guid: e1b9739e4571a81448115f96b419c553, type: 3}
   myObjects: []
 --- !u!4 &281301902
 Transform:
@@ -1144,7 +1142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1179343416}
-  - component: {fileID: 1179343417}
+  - component: {fileID: 1179343415}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1152,6 +1150,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1179343415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179343414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a1a4568dd6619439f0785d2255bebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1186392968905832166, guid: 921e766ea45eb4d4baa32e69e9b75edd, type: 3}
+  spawnInterval: 1.5
+  exponent: 0.01
+  X: 0.28
+  Y: 45
 --- !u!4 &1179343416
 Transform:
   m_ObjectHideFlags: 0
@@ -1167,26 +1182,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1179343417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1179343414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49a1a4568dd6619439f0785d2255bebd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Spawner
-  prefabs:
-  - {fileID: 11400000, guid: d9f437fad37fd164e8782fea0c472e7e, type: 2}
-  - {fileID: 11400000, guid: c3ed39d9a4b527d41ae073f8acf630b1, type: 2}
-  - {fileID: 11400000, guid: 81154ca46f721004b8b27151d2dff813, type: 2}
-  spawnInterval: 1.5
-  exponent: 2
-  X: 0.15
-  Y: 45
 --- !u!1 &1261866425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,18 +1402,9 @@ MonoBehaviour:
   sounds:
   - type: 2
     clips:
-    - {fileID: 8300000, guid: 08bd9e7bbafec2842a8e6e1100beff00, type: 3}
-    - {fileID: 8300000, guid: 9131a9d663b8983408f2811c5bc923f6, type: 3}
-    - {fileID: 8300000, guid: a763e9d1e471a374c8e50efef76d258a, type: 3}
-    - {fileID: 8300000, guid: de5850eb4e8fc7d4dac5e3a5522f18f1, type: 3}
-    maxSimultaneous: 15
-    volumeRange: {x: 0.5, y: 1}
-    pitchRange: {x: 0.5, y: 1}
-  - type: 1
-    clips:
-    - {fileID: 8300000, guid: 00f79659196174f4999ac9d39ec653c0, type: 3}
-    maxSimultaneous: 15
-    volumeRange: {x: 0.5, y: 1}
+    - {fileID: 8300000, guid: aa0931f0928957049bb3cf090c874090, type: 3}
+    maxSimultaneous: 20
+    volumeRange: {x: 0.4, y: 0.6}
     pitchRange: {x: 0.5, y: 1}
 --- !u!4 &1442335761
 Transform:
@@ -2146,23 +2132,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
         type: 3}
-      propertyPath: m_Size.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
-        type: 3}
       propertyPath: m_Size.z
-      value: 140
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      value: 140.61465
       objectReference: {fileID: 0}
     - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
         type: 3}
@@ -2172,7 +2143,7 @@ PrefabInstance:
     - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
         type: 3}
       propertyPath: m_Center.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
         type: 3}
@@ -2182,11 +2153,6 @@ PrefabInstance:
     - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2855471457315782896, guid: 7815020fa3f2ff3429be2583b7da5bc8,
-        type: 3}
-      propertyPath: m_ProvidesContacts
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5813625182678178643, guid: 7815020fa3f2ff3429be2583b7da5bc8,

@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 281394630373557487}
   - component: {fileID: 342450414335935878}
   m_Layer: 6
-  m_Name: R-2
-  m_TagString: Untagged
+  m_Name: HP -25
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

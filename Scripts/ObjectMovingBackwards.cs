@@ -72,7 +72,7 @@ public class ObjectMovingBackwards : MonoBehaviour
     void readyToCreateAnObjectVoid()
     {
         if(spawnedObjects.Count<Setings.maximumStonesOnTheMap)
-            StoneSpawner.newObjectMaximumNumberCheck?.Invoke((byte)spawnedObjects.Count);
+            Spawner.newObjectMaximumNumberCheck?.Invoke((byte)spawnedObjects.Count);
     }
 
     void SetMoveSpeed(byte score)

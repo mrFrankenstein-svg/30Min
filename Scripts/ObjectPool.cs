@@ -1,15 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] List<GameObject> prefabs = new List<GameObject>();
     [SerializeField] List<GameObject> myObjects = new List<GameObject>();
-    //[SerializeField] List<byte> numberOfPooledObj= new List<byte>();
     [SerializeField] private static ObjectPool thisObjectPool;
     private void Awake()
     {

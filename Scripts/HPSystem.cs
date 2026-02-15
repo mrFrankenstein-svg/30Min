@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 public interface IHPInterface
 {
     int changingHP { get; }
@@ -26,7 +25,8 @@ public class HPSystem:MonoBehaviour
     {
         if (obj.TryGetComponent<IHPInterface>(out var myInterface))
         {
-            hp+= myInterface.changingHP;
+            if(hp + myInterface.changingHP<=100)
+                hp+= myInterface.changingHP;
             TMProTextManager.ChangeText(hp, hpText);
         }
     }
