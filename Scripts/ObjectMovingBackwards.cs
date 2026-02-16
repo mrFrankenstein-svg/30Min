@@ -42,7 +42,11 @@ public class ObjectMovingBackwards : MonoBehaviour
 
             Vector3 moveDirection = Vector3.back * moveSpeed + Vector3.right * angularSpeed;
 
-            obj.transform.position += moveDirection * Time.deltaTime;
+            //так это работало
+            //obj.transform.position += moveDirection * Time.deltaTime;
+
+            //так посоветовал сделать
+            obj.GetComponent<Rigidbody>().MovePosition(obj.GetComponent<Rigidbody>().position += moveDirection * Time.deltaTime);
 
             if (obj.transform.position.z >= 20f)
             {

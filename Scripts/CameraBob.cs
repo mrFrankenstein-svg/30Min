@@ -77,20 +77,20 @@ public class CameraBob : MonoBehaviour
         //если нашли нужную точку
         if (isLowest==true)
         {
-            ////если отметка "внизу" уже сработала
-            //if (lowestBobY == true)
-            //{
-            //    //выключаем отметку "внизу"
-            //    lowestBobY = false;
-            //}
-            //else //если отметка "внизу" не сработала
-            //{
-            //    //включаем отметку "внизу" и отправляем true
-            //    lowestBobY = true;
-            //    return true;
-            //}
-            lowestBobY = !lowestBobY;
-            return true;
+            //если отметка "внизу" уже сработала
+            if (lowestBobY == true)
+            {
+                //выключаем отметку "внизу"
+                lowestBobY = false;
+            }
+            else //если отметка "внизу" не сработала
+            {
+                //включаем отметку "внизу" и отправляем true
+                lowestBobY = true;
+                return true;
+            }
+            //lowestBobY = !lowestBobY;
+            //return true;
         }
         previousBobY = currentBobY; 
         return false;

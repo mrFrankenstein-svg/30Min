@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class MotionControlManager : MonoBehaviour
 {
@@ -8,6 +7,7 @@ public class MotionControlManager : MonoBehaviour
     public static Action<float> OnPlayerMovment;
     void Update()
     {
+        
         //Debug.Log(Input.GetAxis("Horizontal"));
         //input = Input.GetAxis("Horizontal");
 

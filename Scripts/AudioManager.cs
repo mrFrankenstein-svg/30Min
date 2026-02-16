@@ -162,7 +162,7 @@ public class AudioManager : MonoBehaviour
         if (Instance == null) Instance = this;
         else { Destroy(gameObject); return; }
 
-        DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+        //DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
 
         // Заполняем словарь для быстрого доступа к звукам по типу
         soundDict = new Dictionary<SoundType, SoundEntry>();
