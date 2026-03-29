@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Mathematics.Geometry;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MovementOfTheGround : MonoBehaviour
