@@ -1,11 +1,25 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Jamp: MonoBehaviour
 {
+    [SerializeField] private float jumpDuration = 2f; // Общая длительность движения (вверх и вниз)
+    [SerializeField] private float jumpHeight = 0.3f; // Общая длительность движения (вверх и вниз)
+    [SerializeField] private List<GameObject> jumpedObj;
+
+    private List<Coroutine> listOfCoroutine= new List<Coroutine>();
+    //private Vector3 startPosition;
+    //private Vector3 targetPosition;
     public static Action<bool> HeIsFly;
     private bool isUp = false;
+    //private void Start()
+    //{
+    //    startPosition= camerta.transform.position;
+    //}
     private void Update()
     {
         if (Input.GetAxisRaw("Jump") != 0)
@@ -19,13 +33,68 @@ public class Jamp: MonoBehaviour
         {
             isUp = true;
             HeIsFly?.Invoke(isUp);
-            StartCoroutine(Fly());
+            StartCoroutine(BouncingObjects());
         }
     }
-    private IEnumerator Fly()
+    private IEnumerator BouncingObjects()
     {
-        tra
-        yield return new WaitForSeconds(11);
+        for (int i = 0; i < jumpedObj.Count; i++)
+        {
+            listOfCoroutine.Add(null);
+        }
 
+        for (int i = 0; i < jumpedObj.Count; i++)
+        {
+            listOfCoroutine[i] = StartCoroutine(Fly(jumpedObj[i]));
+        }
+        while (listOfCoroutine.Count != 0)
+        {
+            yield return null;
+        }
+        isUp = false;
+        HeIsFly?.Invoke(isUp);
+    }
+    private IEnumerator Fly(GameObject obj)
+    {
+        Vector3 startPosition = obj.transform.position;
+        Vector3 targetPosition = startPosition + Vector3.up * (startPosition.y * jumpHeight);
+
+        float halfDuration = jumpDuration / 2f;
+
+        // Движение вверх (с замедлением)
+        float elapsedTime = 0f;
+        while (elapsedTime < halfDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / halfDuration;
+
+            // Параболическая кривая: сначала быстро, потом медленно
+            float parabolicProgress = 1 - Mathf.Pow(1 - progress, 2);
+
+            obj.transform.position = Vector3.Lerp(startPosition, targetPosition, parabolicProgress);
+            yield return new WaitForFixedUpdate();
+        }
+
+        // Устанавливаем точную позицию в верхней точке
+        obj.transform.position = targetPosition;
+
+        // Движение вниз (с ускорением)
+        elapsedTime = 0f;
+        while (elapsedTime < halfDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / halfDuration;
+
+            // Параболическая кривая: сначала медленно, потом быстро
+            float parabolicProgress = Mathf.Pow(progress, 2);
+
+            obj.transform.position = Vector3.Lerp(targetPosition, startPosition, parabolicProgress);
+            yield return new WaitForFixedUpdate();
+        }
+
+        // Устанавливаем точную начальную позицию
+        obj.transform.position = startPosition;
+        listOfCoroutine.Remove(listOfCoroutine.Last());
     }
 }
+
