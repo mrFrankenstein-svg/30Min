@@ -1,4 +1,5 @@
 using UnityEngine;
+using static AudioManager;
 
 public class CameraBob : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CameraBob : MonoBehaviour
 
     private Vector3 startLocalPos; // Ќачальна€ локальна€ позици€
     private float timer;
+    private bool heIsInAir = false;
 
     [SerializeField] private float velocity=0.1f;
     [SerializeField] private float previousBobY=1f;
@@ -23,13 +25,15 @@ public class CameraBob : MonoBehaviour
     {
         startLocalPos = transform.localPosition;
     }
-    private void Start()
+    private void OnEnable()
     {
         ScoreCounter.OnTick += UpdateBob2;
+        Jamp.HeIsFly += JampEvent;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         ScoreCounter.OnTick -= UpdateBob2;
+        Jamp.HeIsFly -= JampEvent;
     }
 
     public void UpdateBob2(byte _byte)
@@ -38,23 +42,26 @@ public class CameraBob : MonoBehaviour
     }
     public void Update()
     {
-        timer += Time.deltaTime * walkBobSpeed * velocity;
-
-        float bobY = Mathf.Sin(timer) * walkBobAmount;
-        float swayX = Mathf.Cos(timer * 0.5f) * swayAmount; 
-        
-        if (IsAtLowestPoint(bobY))
+        if (heIsInAir==false)
         {
-            //Debug.Log(" амера в нижней точке шага!");
-            AudioManager.Instance.Play(SoundType.Footstep, gameObject.transform.position);
-        }
+            timer += Time.deltaTime * walkBobSpeed * velocity;
 
-        Vector3 targetPos = startLocalPos + new Vector3(swayX, bobY, 0f);
-        transform.localPosition = Vector3.Lerp(
-            transform.localPosition,
-            targetPos,
-            Time.deltaTime * smooth
-        );
+            float bobY = Mathf.Sin(timer) * walkBobAmount;
+            float swayX = Mathf.Cos(timer * 0.5f) * swayAmount;
+
+            if (IsAtLowestPoint(bobY))
+            {
+                //Debug.Log(" амера в нижней точке шага!");
+                AudioManager.Instance.Play(SoundType.Footstep, gameObject.transform.position);
+            }
+
+            Vector3 targetPos = startLocalPos + new Vector3(swayX, bobY, 0f);
+            transform.localPosition = Vector3.Lerp(
+                transform.localPosition,
+                targetPos,
+                Time.deltaTime * smooth
+            );
+        }
     }
     bool IsAtLowestPoint(float currentBobY)
     {
@@ -89,10 +96,29 @@ public class CameraBob : MonoBehaviour
                 lowestBobY = true;
                 return true;
             }
+            //это не пон€л зачем было
             //lowestBobY = !lowestBobY;
+
+            //если return true на за коментами- будет отправл€тс€ true когда "нос" находитс€ и в верхней точке тоже.             
             //return true;
+            //if (heIsInAir_state1 == true)
+            //{
+            //    heIsInAir_state2 = true;
+            //}
         }
         previousBobY = currentBobY; 
         return false;
+    }
+    private void JampEvent(bool jampState)
+    {
+        if (jampState == true)
+        {
+            heIsInAir = true;
+            Instance.StopSound(SoundType.Footstep);
+        }
+        else
+        {
+            heIsInAir = false;
+        }
     }
 }

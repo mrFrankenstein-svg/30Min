@@ -153,6 +153,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<SoundEntry> sounds = new List<SoundEntry>(); // Список категорий звуков
 
     private Dictionary<SoundType, SoundEntry> soundDict;    // Словарь для быстрого доступа к звукам
+    private Dictionary<AudioSource, SoundType> activeSoundDict; //Словарь активных в данный момент источников
     private Queue<AudioSource> audioPool = new Queue<AudioSource>(); // Пул свободных источников
     private Dictionary<AudioClip, int> activeClips = new Dictionary<AudioClip, int>(); // Сколько раз один клип играет
 
@@ -163,6 +164,9 @@ public class AudioManager : MonoBehaviour
         else { Destroy(gameObject); return; }
 
         //DontDestroyOnLoad(gameObject); // Сохраняем объект между сценами
+
+        //Создаём словарь в хипе
+        activeSoundDict = new Dictionary<AudioSource, SoundType>();
 
         // Заполняем словарь для быстрого доступа к звукам по типу
         soundDict = new Dictionary<SoundType, SoundEntry>();
@@ -226,6 +230,9 @@ public class AudioManager : MonoBehaviour
         if (!activeClips.ContainsKey(clip)) activeClips[clip] = 0;
         activeClips[clip]++;
 
+        //Добавляем созданный/выбранный источник в список активных
+        activeSoundDict.Add(source, type);
+
         // Ждем, пока звук отыграет, и возвращаем источник в пул
         StartCoroutine(ReturnToPoolAfterPlay(source, clip));
     }
@@ -234,6 +241,9 @@ public class AudioManager : MonoBehaviour
     private System.Collections.IEnumerator ReturnToPoolAfterPlay(AudioSource source, AudioClip clip)
     {
         yield return new WaitWhile(() => source.isPlaying); // Ждем конца воспроизведения
+
+        //Удаляем источник изсписка активных
+        activeSoundDict.Remove(source);
 
         // Уменьшаем счетчик активных клипов
         if (activeClips.ContainsKey(clip))
@@ -248,5 +258,15 @@ public class AudioManager : MonoBehaviour
         source.clip = null;
         source.transform.SetParent(transform);
         audioPool.Enqueue(source);
+    }
+    public void StopSound(SoundType type)
+    {
+        foreach (var sound in activeSoundDict)
+        {
+            if (sound.Value == type)
+            {
+                sound.Key.Stop();
+            }
+        }
     }
 }

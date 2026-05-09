@@ -1,12 +1,10 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using static AudioManager;
 public interface IHPInterface
 {
     int changingHP { get; }
 }
-
 public class HPSystem:MonoBehaviour
 {
     [SerializeField] private int hp = 100;

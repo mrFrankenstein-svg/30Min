@@ -9,6 +9,7 @@ public class EnduranceSystem : MonoBehaviour
 {
     [SerializeField] private int endurance = 100;
     [SerializeField] private TMP_Text enduranceText;
+    public static EnduranceSystem enduranceSystemScript;
     private void OnEnable()
     {
         TouchSystemGameObject.OnOstrichBeakTouch += ReactionOnTouch;
@@ -19,6 +20,7 @@ public class EnduranceSystem : MonoBehaviour
     }
     private void Start()
     {
+        enduranceSystemScript = this;
         TMProTextManager.ChangeText(endurance, enduranceText);
     }
     private void ReactionOnTouch(GameObject obj)
@@ -53,5 +55,17 @@ public class EnduranceSystem : MonoBehaviour
             }
             TMProTextManager.ChangeText(endurance, enduranceText);
         }
+    }
+
+    public static bool JumpRequest()
+    {
+        if (enduranceSystemScript.endurance >= 25)
+        {
+            enduranceSystemScript.endurance = enduranceSystemScript.endurance - 25;
+            TMProTextManager.ChangeText(enduranceSystemScript.endurance, enduranceSystemScript.enduranceText);
+            return true;
+        }
+        else
+            return false;
     }
 }

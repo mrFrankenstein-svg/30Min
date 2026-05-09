@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 
 public class Jamp: MonoBehaviour
@@ -12,29 +11,23 @@ public class Jamp: MonoBehaviour
     [SerializeField] private List<GameObject> jumpedObj;
 
     private List<Coroutine> listOfCoroutine= new List<Coroutine>();
-    //private Vector3 startPosition;
-    //private Vector3 targetPosition;
     public static Action<bool> HeIsFly;
     private bool isUp = false;
-    //private void Start()
-    //{
-    //    startPosition= camerta.transform.position;
-    //}
     private void Update()
     {
-        if (Input.GetAxisRaw("Jump") != 0)
+        if (Input.GetAxisRaw("Jump") != 0 && isUp == false)
         {
-            JampUp();
+            isUp = true;
+            if (EnduranceSystem.JumpRequest() == true)
+                JampUp();
+            else
+                isUp = false;
         }
     }
     private void JampUp()
     {
-        if (isUp == false)
-        {
-            isUp = true;
-            HeIsFly?.Invoke(isUp);
-            StartCoroutine(BouncingObjects());
-        }
+        HeIsFly?.Invoke(isUp);
+        StartCoroutine(BouncingObjects());
     }
     private IEnumerator BouncingObjects()
     {
