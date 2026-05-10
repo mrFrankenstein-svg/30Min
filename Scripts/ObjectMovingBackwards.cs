@@ -71,7 +71,8 @@ public class ObjectMovingBackwards : MonoBehaviour
     void NewObjCreated( GameObject newObj)
     {
         newObj.transform.parent = transform;
-        spawnedObjects.Add(newObj);
+        spawnedObjects.Add(newObj); 
+        newObj.transform.rotation = transform.rotation;
     }
     void readyToCreateAnObjectVoid()
     {
