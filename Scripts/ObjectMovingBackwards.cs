@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class ObjectMovingBackwards : MonoBehaviour
 {
     // Храним созданные объекты
-    private List<GameObject> spawnedObjects = new List<GameObject>();
+    [SerializeField] private List<GameObject> spawnedObjects;
 
     [Header("Скорость движения объектов")]
     public float moveSpeed = 2f;

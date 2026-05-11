@@ -118,7 +118,8 @@ public class CameraBob : MonoBehaviour
         }
         else
         {
-            heIsInAir = false;
+            heIsInAir = false; 
+            AudioManager.Instance.Play(SoundType.Footstep, gameObject.transform.position);
         }
     }
 }
