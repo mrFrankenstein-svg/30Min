@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class GifPlayer : MonoBehaviour
 {
@@ -27,7 +24,7 @@ public class GifPlayer : MonoBehaviour
         {
             lastTime = 0;
             currentSpriteIndex++;
-            if (currentSpriteIndex > sprits.Count || currentSpriteIndex > 126)
+            if (currentSpriteIndex > sprits.Count-1 || currentSpriteIndex > 126)
             {
                 currentSpriteIndex = 0;
             }
