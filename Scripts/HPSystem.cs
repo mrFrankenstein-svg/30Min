@@ -30,7 +30,8 @@ public class HPSystem:MonoBehaviour
             switch (hp + myInterface.changingHP)
             {
                 case <= 0:
-                    Debug.Log("добавить что-нибудь про смерть");
+                    //Debug.Log("добавить что-нибудь про смерть");
+                    EndOffGame.EndOfGame?.Invoke();
                     break;
                 case <=100:
                     hp += myInterface.changingHP;

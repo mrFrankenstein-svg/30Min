@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
+    private static ScoreCounter scoreCounter;
     [SerializeField] byte score=1;
     private float counter;
     public static Action<byte> OnTick;
@@ -11,8 +12,9 @@ public class ScoreCounter : MonoBehaviour
     private void Start()
     {
         TMProTextManager.ChangeText(score, scoreText);
+        scoreCounter = this;
     }
-    void Update()
+    private void Update()
     {
         counter += Time.deltaTime;
         if (counter >= 1)
@@ -22,5 +24,9 @@ public class ScoreCounter : MonoBehaviour
             OnTick?.Invoke(score);
             TMProTextManager.ChangeText(score, scoreText);
         }
+    }
+    public static byte GetScore()
+    {
+        return scoreCounter.score;
     }
 }

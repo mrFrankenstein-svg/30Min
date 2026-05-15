@@ -18,14 +18,14 @@ public class ObjectMovingBackwards : MonoBehaviour
     public static UnityEvent<GameObject> newObjCreated = new UnityEvent<GameObject>();
     public UnityEvent readyToCreateAnObject = new UnityEvent();
     
-    private void Start()
+    private void OnEnable()
     {
         ScoreCounter.OnTick += SetMoveSpeed;
         newObjCreated.AddListener(NewObjCreated);
         readyToCreateAnObject.AddListener(readyToCreateAnObjectVoid); 
         MotionControlManager.OnPlayerMovment += SetAngularSpeed;
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         ScoreCounter.OnTick-=SetMoveSpeed;
         newObjCreated.RemoveListener(NewObjCreated);

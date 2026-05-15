@@ -1,3 +1,4 @@
+/* не работает в браузере
 Shader "Custom/URP/MultiDistortionTransparent"
 {
     Properties
@@ -117,6 +118,93 @@ Shader "Custom/URP/MultiDistortionTransparent"
                 return finalColor;
             }
 
+            ENDHLSL
+        }
+    }
+}
+*/
+
+Shader "Custom/URP/MultiDistortionTransparent"
+{
+    Properties
+    {
+        _MainTex("Texture", 2D) = "white" {}
+        _DistortionStrength("Distortion Strength", Float) = 0.02
+        _DistortionSpeed("Distortion Speed", Float) = 1.0
+        _Alpha("Alpha", Range(0,1)) = 1
+    }
+
+    SubShader
+    {
+        Tags
+        {
+            "RenderPipeline" = "UniversalRenderPipeline"
+            "Queue" = "Transparent"
+            "RenderType" = "Transparent"
+        }
+
+        Pass
+        {
+            Name "ForwardLit"
+            Tags { "LightMode" = "UniversalForward" }
+
+            Blend SrcAlpha OneMinusSrcAlpha
+            ZWrite Off
+            Cull Off
+
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #pragma target 3.0
+            #pragma multi_compile __ UNITY_WEBGL
+
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+            struct Attributes
+            {
+                float4 positionOS : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct Varyings
+            {
+                float4 positionHCS : SV_POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            TEXTURE2D(_MainTex); SAMPLER(sampler_MainTex);
+            float _DistortionStrength;
+            float _DistortionSpeed;
+            float _Alpha;
+
+            Varyings vert(Attributes IN)
+            {
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                OUT.uv = IN.uv;
+                return OUT;
+            }
+
+            float4 frag(Varyings IN) : SV_Target
+            {
+                float2 uv = IN.uv;
+                float time = _Time.y * _DistortionSpeed;
+                float4 col; // ← Объявляем переменную ДО условных блоков
+
+                #if UNITY_WEBGL || UNITY_EDITOR
+                    // Упрощённая версия для WebGL и редактора
+            float2 offset = sin(time + uv * 10.0) * _DistortionStrength;
+            col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv + offset);
+            col.a *= _Alpha;
+                #else
+            // Полная версия для других платформ
+            float2 offset1 = sin(dot(uv, float2(1, 0)) * 50.0 + time * 10.0) * float2(1, 0) * _DistortionStrength;
+            col = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv + offset1);
+            col.a *= _Alpha;
+                #endif
+
+                return col;
+            }
             ENDHLSL
         }
     }

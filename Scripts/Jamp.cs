@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static AudioManager;
 
 public class Jamp: MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class Jamp: MonoBehaviour
     {
         HeIsFly?.Invoke(isUp);
         StartCoroutine(BouncingObjects());
+        Instance.Play(SoundType.UI, this.transform.position);
     }
     private IEnumerator BouncingObjects()
     {
